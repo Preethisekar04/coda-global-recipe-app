@@ -1,0 +1,59 @@
+<!--Global Serach Bar-->
+<div class="row">
+  <div class="col-sm-12 col-md-12 col-lg-12">
+    <div class="form-group has-search">
+      <span class="fa-stack fa-lg form-control-feedback">
+        <span class="fa fa-circle fa-stack-2x"></span>
+        <span class="fa fa-search fa-stack-1x fa-inverse"></span>
+      </span>
+      <input type="search" class="form-control custom-input" [(ngModel)]="searchTerm"
+        placeholder="Search your favourite recipe">
+    </div>
+  </div>
+</div>
+
+<!--Recipe Item Cards-->
+<cdk-virtual-scroll-viewport itemSize="50" class="fact-scroll-viewport" style="height: 100vh;">
+  <div class="card-columns">
+    <ng-container *cdkVirtualFor="let recipe of recipes | foodSearch : searchTerm : searchKey;let i=index;">
+      <app-food-item (itemClicked)="onItemClicked($event);" [recipe]="recipe"></app-food-item>
+    </ng-container>
+  </div>
+</cdk-virtual-scroll-viewport>
+
+<!--Modal Window template-->
+<ng-template #modalTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{recipe.name}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="card recipe-card">
+      <img [src]="recipe.image" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">{{recipe.name}}
+          <span class="pl-1">
+            <span class="fa fa-usd pl-1" aria-hidden="true"></span>
+            {{recipe.price}}
+          </span>
+          <span class="fa fa-heart pull-right" aria-hidden="true"
+            [ngStyle]="{'color':(recipe.label=='New' || recipe.label=='Hot') ? '#dc3545' : ''}"></span>
+        </h5>
+        <div class="card-title">
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star"></span>
+        </div>
+        <h5 class="card-title">
+          <span class="fa fa-clock-o" aria-hidden="true"></span>
+          <span class="time pl-1">45 min</span>
+        </h5>
+        <p class="card-text">{{recipe.description}}</p>
+      </div>
+    </div>
+  </div>
+</ng-template>

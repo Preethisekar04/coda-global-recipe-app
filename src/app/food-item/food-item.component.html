@@ -1,0 +1,28 @@
+<div class="card recipe-card">
+  <img [src]="recipe.image" class="card-img-top">
+  <div class="card-img-overlay p-0 text-center">
+    <div class="card-title">
+      <span class="text-center btn-dark pull-right">
+        In {{recipe.category}}
+      </span>
+    </div>
+    <div class="card-body">
+      <button (click)="itemClick(recipe)" class="btn btn-danger no-radius btn-sm view-btn">View</button>
+    </div>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{recipe.name}}
+      <span class="pl-1">
+        <span class="fa fa-usd" aria-hidden="true"></span>
+        {{recipe.price}}
+      </span>
+      <span class="fa fa-heart pull-right" aria-hidden="true"
+        [ngStyle]="{'color':(recipe.label=='New' || recipe.label=='Hot') ? '#dc3545' : ''}"></span>
+    </h5>
+    <h5 class="card-title">
+      <span class="fa fa-clock-o" aria-hidden="true"></span>
+      <span class="time pl-1">45 min</span>
+    </h5>
+    <p class="card-text">{{recipe.description}}</p>
+  </div>
+</div>
